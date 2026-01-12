@@ -1,0 +1,1 @@
+//get financial palns with their details
