@@ -1,6 +1,8 @@
 "use client";
 
+import { Pen, ToggleLeft, ToggleRight, Trash2 } from "lucide-react";
 import { useBranches } from "../../hooks/useBranches";
+import { useState } from "react";
 
 interface Branch {
   id: number;
@@ -11,7 +13,12 @@ interface Branch {
 
 const BranchTable = () => {
   const { branches, loading, error } = useBranches();
+  const [isActive, setIsActive] = useState(false);
   console.log(branches);
+
+  const toggleStatus = () => {
+    setIsActive(!isActive);
+  };
 
   // Styled Loading State
   if (loading) {
@@ -53,6 +60,8 @@ const BranchTable = () => {
               <th className="px-6 py-4 font-semibold text-gray-600">
                 Team Size
               </th>
+              <th className="px-6 py-4 font-semibold text-gray-600">Action</th>
+
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100 bg-white">
@@ -99,6 +108,19 @@ const BranchTable = () => {
                     {branch.members?.length || 0} Members
                   </span>
                 </td>
+
+                {/* Action Column */}
+                <td>
+                  <div className="flex gap-4 px-6 py-4">
+                    <button className="cursor-pointer text-blue-400 bg-blue-300/20 rounded-md px-2 py-1">
+                      <Pen className="w-5" />
+                    </button>
+                    <button className="cursor-pointer text-red-400 bg-red-300/20 rounded-md px-2 py-1">
+                      <Trash2 className="w-5" />
+                    </button>
+                  </div>
+                </td>
+                
               </tr>
             ))}
           </tbody>
