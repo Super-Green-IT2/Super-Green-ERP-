@@ -15,7 +15,7 @@ datasource db {
 
 
 model Branch {
-  id        String   @id @default(uuid())
+  id        Int   @id @default(autoincrement())
   name      String
   location  String
   members   Member[]
@@ -50,7 +50,7 @@ model Member {
   phone           String
   totalCommission Float    @default(0)
 
-  branchId  String
+  branchId  Int
   branch    Branch   @relation(fields: [branchId], references: [id])
 
   positionId String

@@ -56,7 +56,7 @@ const BranchTable = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100 bg-white">
-            {branches.map((branch: Branch) => (
+            {branches?.map((branch: Branch) => (
               <tr
                 key={branch.id}
                 className="transition-colors hover:bg-gray-50"
@@ -106,7 +106,7 @@ const BranchTable = () => {
       </div>
 
       {/* Empty State Handling */}
-      {branches.length === 0 && (
+      {branches?.length === 0 && (
         <div className="p-8 text-center text-gray-500">No branches found.</div>
       )}
     </div>

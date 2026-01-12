@@ -12,7 +12,9 @@ export const useBranches = () => {
         setLoading(true)
         const res = await fetch("/api/src/modules/branches");
         const data = await res.json();
-        setBranches(data.res);
+        setBranches(data.res || []);
+        console.log("from hook",data);
+        
         setLoading(false);
       } catch {
         setError("Failed to fetch branches");

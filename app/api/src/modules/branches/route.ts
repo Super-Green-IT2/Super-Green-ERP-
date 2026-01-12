@@ -3,14 +3,15 @@ import { prisma } from "../../utils/prisma";
 
 export async function GET() {
   try {
-    const res = await prisma.branch.findMany({
+    const branches = await prisma.branch.findMany({
       include: {
-        members: true, // <-- include related members foregin key data
+        members: true, 
       },
     });
 
-    return NextResponse.json({ message: "Branch fetch success", res });
+    return NextResponse.json({ message: "Branch fetch success", res: branches });
   } catch (error) {
+    console.error(error); // <-- log actual error
     return NextResponse.json(
       { error: "Failed to fetch branches" },
       { status: 500 }
@@ -18,9 +19,10 @@ export async function GET() {
   }
 }
 
+
 export async function POST(request: Request) {
   try {
-    
+
     const data = await request.json();
     const newBranch = await prisma.branch.create({
       data: {
