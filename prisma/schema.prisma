@@ -24,7 +24,7 @@ model Branch {
 }
 
 model Position {
-  id        String   @id @default(uuid())
+  id        Int   @id @default(autoincrement())
   title     String
   baseSalary Float
   commissionRate CommissionRate?
@@ -34,17 +34,17 @@ model Position {
 }
 
 model CommissionRate {
-  id          String   @id @default(uuid())
+  id          Int   @id @default(autoincrement())
   rate        Float
   position    Position @relation(fields: [positionId], references: [id])
-  positionId  String   @unique
+  positionId  Int   @unique
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
 //many side ekata foreign key eka / Parent has an array
 model Member {
-  id              String   @id @default(uuid())
+  id              Int   @id @default(autoincrement())
   name            String
   email           String   @unique
   phone           String
@@ -53,7 +53,7 @@ model Member {
   branchId  Int
   branch    Branch   @relation(fields: [branchId], references: [id])
 
-  positionId String
+  positionId Int
   position   Position @relation(fields: [positionId], references: [id])
 
   createdAt DateTime @default(now())
@@ -62,7 +62,7 @@ model Member {
 
 
 model client{
-  id        String   @id @default(uuid())
+  id        Int   @id @default(autoincrement())
   name      String
   email     String   @unique
   phone     String?

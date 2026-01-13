@@ -6,13 +6,15 @@ import {  LayoutDashboard,
   Percent,
   Users,
   User, 
-  LogOut} from "lucide-react";
+  LogOut,
+  IdCardLanyard} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const links = [
   { name: "Dashboard", href: "/features/dashboard", icon: LayoutDashboard  },
   { name: "Branches", href: "/features/branches", icon: GitBranch },
+  { name: "Employee", href: "/features/employee", icon: IdCardLanyard },
   { name: "Financial Plans", href: "/features/financial_plans", icon: Landmark },
   { name: "Commissions", href: "/features/commissions", icon: Percent },
   { name: "Clients", href: "/features/clients", icon: Users },

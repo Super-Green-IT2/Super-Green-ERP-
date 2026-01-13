@@ -1,6 +1,8 @@
 "use client";
 
+import { Pen, ToggleLeft, ToggleRight, Trash2 } from "lucide-react";
 import { useBranches } from "../../hooks/useBranches";
+import { useState } from "react";
 
 interface Branch {
   id: number;
@@ -10,11 +12,16 @@ interface Branch {
 }
 
 const BranchTable = () => {
-  const { branches, loading, error } = useBranches();
+  const { data:branches, isLoading, error } = useBranches();
+  const [isActive, setIsActive] = useState(false);
   console.log(branches);
 
+  const toggleStatus = () => {
+    setIsActive(!isActive);
+  };
+
   // Styled Loading State
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex h-40 items-center justify-center rounded-xl border border-gray-200 bg-white">
         <div className="flex flex-col items-center gap-2">
@@ -32,7 +39,7 @@ const BranchTable = () => {
     return (
       <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-center">
         <p className="font-semibold text-red-600">Error loading data</p>
-        <p className="text-sm text-red-500">{error}</p>
+        
       </div>
     );
   }
@@ -53,6 +60,8 @@ const BranchTable = () => {
               <th className="px-6 py-4 font-semibold text-gray-600">
                 Team Size
               </th>
+              <th className="px-6 py-4 font-semibold text-gray-600">Action</th>
+
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100 bg-white">
@@ -99,6 +108,19 @@ const BranchTable = () => {
                     {branch.members?.length || 0} Members
                   </span>
                 </td>
+
+                {/* Action Column */}
+                <td>
+                  <div className="flex gap-4 px-6 py-4">
+                    <button className="cursor-pointer text-blue-400 bg-blue-300/20 rounded-md px-2 py-1">
+                      <Pen className="w-5" />
+                    </button>
+                    <button className="cursor-pointer text-red-400 bg-red-300/20 rounded-md px-2 py-1">
+                      <Trash2 className="w-5" />
+                    </button>
+                  </div>
+                </td>
+                
               </tr>
             ))}
           </tbody>
