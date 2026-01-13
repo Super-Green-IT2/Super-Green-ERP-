@@ -1,6 +1,7 @@
 "use client";
 
-import AddBranchModal from "@/app/components/Branch/Add";
+import BranchModal from "@/app/components/Branch/Model";
+import AddBranchModal from "@/app/components/Branch/Model";
 import BranchTable from "@/app/components/Branch/BranchTable";
 import { ChevronDown, Search } from "lucide-react";
 import { useState } from "react";
@@ -8,10 +9,10 @@ import { useState } from "react";
 const page = () => {
   const [showAddModal, setShowAddModal] = useState(false);
 
-  const handleAddBranch = async (data: { name: string; location: string }) => {
+  const setShowModal = async (data: { name: string; location: string }) => {
     console.log("Branch Data:", data);
     try {
-      const res = await fetch("/api/src/modules/branches", {
+      const res = await fetch("/api/src/branches", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -99,9 +100,13 @@ const page = () => {
         </div>
       </div>
       {showAddModal && (
-        <AddBranchModal
-          onSubmit={handleAddBranch}
+        <BranchModal
+          mode="add"
           onClose={() => setShowAddModal(false)}
+          onSubmit={(data) => {
+            setShowModal(data);
+            console.log("Add", data);
+          }}
         />
       )}
     </div>
