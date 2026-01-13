@@ -1,29 +1,12 @@
-'use client'
-import { useEffect, useState } from "react";
+"use client";
+
+import { useQuery } from "@tanstack/react-query";
+import { fetchBranches } from "../api/src/branches/branches";
 
 export const useBranches = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [branches, setBranches] = useState<any[]>([]);
-
-  useEffect(() => {
-    async function fetchBranches() {
-      try {
-        setLoading(true)
-        const res = await fetch("/api/src/modules/branches");
-        const data = await res.json();
-        setBranches(data.res || []);
-        console.log("from hook",data);
-        
-        setLoading(false);
-      } catch {
-        setError("Failed to fetch branches");
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchBranches();
-  }, []);
-
-  return { branches, loading, error };
+  return useQuery({
+    queryKey: ["branches"],
+    queryFn: fetchBranches,
+    gcTime: 1000 * 60 * 3, 
+  });
 };

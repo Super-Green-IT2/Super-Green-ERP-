@@ -4,9 +4,21 @@ import { useBranches } from "@/app/hooks/useBranches";
 import Link from "next/link";
 import { Users } from "lucide-react";
 
-const Page = () => {
-  const { branches } = useBranches();
+interface Branch {
+  id: string;
+  name: string;
+  members: Array<string>;
+}
 
+const Page = () => {
+  const { data: branches, isLoading, error } = useBranches();
+
+  if (isLoading) {
+    return <div>Loading branches...</div>;
+  }
+  if (error) {
+    return <div>Error loading branches.</div>;
+  }
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -19,7 +31,7 @@ const Page = () => {
 
       {/* Branch Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {branches.map((branch) => (
+        {branches.map((branch:Branch) => (
           <Link
             key={branch.id}
             href={`/features/employee/${branch.id}`}
@@ -48,7 +60,7 @@ const Page = () => {
                     {branch.members.length} employees
                   </p>
                   <p className="text-sm text-gray-500">
-                    Manage employees
+                   Click to Manage employees
                   </p>
                 </div>
               </div>

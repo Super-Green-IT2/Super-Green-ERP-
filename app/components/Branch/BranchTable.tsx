@@ -12,7 +12,7 @@ interface Branch {
 }
 
 const BranchTable = () => {
-  const { branches, loading, error } = useBranches();
+  const { data:branches, isLoading, error } = useBranches();
   const [isActive, setIsActive] = useState(false);
   console.log(branches);
 
@@ -21,7 +21,7 @@ const BranchTable = () => {
   };
 
   // Styled Loading State
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex h-40 items-center justify-center rounded-xl border border-gray-200 bg-white">
         <div className="flex flex-col items-center gap-2">
@@ -39,7 +39,7 @@ const BranchTable = () => {
     return (
       <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-center">
         <p className="font-semibold text-red-600">Error loading data</p>
-        <p className="text-sm text-red-500">{error}</p>
+        
       </div>
     );
   }

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Sidebar from "./components/SideBar/Sidebar";
+import Providers from "./providers";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +34,11 @@ export default function RootLayout({
           <Sidebar />
 
           <main className="ml-0 md:ml-60 p-6 bg-gray-100 min-h-screen w-full">
-            {children}
+            <Providers>
+              {children}
+
+              <ReactQueryDevtools initialIsOpen={false} />
+            </Providers>
           </main>
         </div>
       </body>

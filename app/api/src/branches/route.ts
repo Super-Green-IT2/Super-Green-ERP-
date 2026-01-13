@@ -1,15 +1,18 @@
 import { NextResponse } from "next/server";
-import { prisma } from "../../utils/prisma";
+import { prisma } from "../utils/prisma";
 
 export async function GET() {
   try {
     const branches = await prisma.branch.findMany({
       include: {
-        members: true, 
+        members: true,
       },
     });
 
-    return NextResponse.json({ message: "Branch fetch success", res: branches });
+    return NextResponse.json({
+      message: "Branch fetch success",
+      res: branches,
+    });
   } catch (error) {
     console.error(error); // <-- log actual error
     return NextResponse.json(
@@ -19,20 +22,21 @@ export async function GET() {
   }
 }
 
-
 export async function POST(request: Request) {
   try {
-
     const data = await request.json();
     const newBranch = await prisma.branch.create({
       data: {
         name: data.name,
         location: data.location,
       },
-    })
+    });
 
-    return NextResponse.json({message: "Branch created successfully", newBranch});
+    return NextResponse.json({
+      message: "Branch created successfully",
+      newBranch,
+    });
   } catch (error) {
-    return NextResponse.json({error})
+    return NextResponse.json({ error });
   }
 }
