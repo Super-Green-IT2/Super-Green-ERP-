@@ -10,7 +10,7 @@ import AddPlanModal from "@/app/components/FinancialPlans/AddPlanModal";
 export default function FinancialPlansClient({ initialPlans = [] }: { initialPlans: any[] }) {  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const formatDuration = (months: number) => {
-    if (months >= 12) {
+    if (months >= 12) { 
       const years = months / 12;
       return `${years} ${years === 1 ? 'Year' : 'Years'}`;
     }
