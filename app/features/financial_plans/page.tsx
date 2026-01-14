@@ -1,9 +1,9 @@
 // app/features/financial_plans/FinancialPlansClient.tsx
 "use client"
 
-import React, { useState } from 'react';
-import { Plus, Clock, TrendingUp, Trash2, Edit2, Calendar } from 'lucide-react';
 import AddPlanModal from "@/app/components/FinancialPlans/AddPlanModal";
+import { Calendar, Clock, Edit2, Plus, Trash2, TrendingUp } from 'lucide-react';
+import { useState } from 'react';
 
 
 // මෙලෙස වෙනස් කරන්න
